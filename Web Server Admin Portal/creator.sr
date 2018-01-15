@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo "Enter the name of the website to create";
+
+echo  #for entering a new line   
+
+#The script that runs and makes a new web host 
+
+read new_site
+
+echo
+
+adduser -d /var/www/html/$new_site $new_site
+
+echo "Now enter the password for $new_site ";
+
+passwd $new_site
+
+#Making an index page for the website
+
+chmod -R 755 /var/www/html/*
+
+echo "Hi this is the website index page for $new_site" >> /var/www/html/$new_site/index.html
+
+echo "<VirtualHost *:80>" >> /etc/httpd/conf/httpd.conf
+echo "    ServerAdmin root@$new_site.local" >> /etc/httpd/conf/httpd.conf
+echo "    DocumentRoot /var/www/html/$new_site" >> /etc/httpd/conf/httpd.conf
+echo "    ServerName www.$new_site.local" >> /etc/httpd/conf/httpd.conf
+echo "</VirtualHost>" >> /etc/httpd/conf/httpd.conf
+
+echo "127.0.0.1 www.$new_site.local" >> /etc/hosts
+
+echo 
+
+service httpd restart
+service httpd restart
+
+echo
+
+echo ---------------- Congratulations!!! Website $new_site created ---------------- 
+echo

@@ -1,0 +1,9 @@
+CREATE TABLE hostinng
+(
+userID int(9) NOT NULL auto_increment,
+websiteName VARCHAR(50) NOT NULL,
+email VARCHAR(40) NOT NULL,
+password VARCHAR(40) NOT NULL,
+hostingSpace int(2) NOT NULL,
+PRIMARY KEY(userID)
+);
